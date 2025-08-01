@@ -1019,11 +1019,23 @@
         "TaskDefinition": {
           "Ref": "QualysTaskDefinition"
         },
-        "DesiredCount": 1,
+        "DesiredCount": {
+          "Ref": "DesiredCapacity"
+        },
         "LaunchType": "EC2",
+        "PlacementStrategy": [
+          {
+            "Type": "spread",
+            "Field": "instanceId"
+          },
+          {
+            "Type": "spread", 
+            "Field": "attribute:ecs.availability-zone"
+          }
+        ],
         "DeploymentConfiguration": {
           "MaximumPercent": 200,
-          "MinimumHealthyPercent": 0
+          "MinimumHealthyPercent": 50
         },
         "Tags": [
           {
